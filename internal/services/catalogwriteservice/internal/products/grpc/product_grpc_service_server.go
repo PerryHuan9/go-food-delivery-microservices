@@ -14,7 +14,7 @@ import (
 	getProductByIdDtosV1 "github.com/mehdihadeli/go-food-delivery-microservices/internal/services/catalogwriteservice/internal/products/features/gettingproductbyid/v1/dtos"
 	updateProductCommandV1 "github.com/mehdihadeli/go-food-delivery-microservices/internal/services/catalogwriteservice/internal/products/features/updatingproduct/v1"
 	"github.com/mehdihadeli/go-food-delivery-microservices/internal/services/catalogwriteservice/internal/shared/contracts"
-	productsService "github.com/mehdihadeli/go-food-delivery-microservices/internal/services/catalogwriteservice/internal/shared/grpc/genproto"
+	productsService "github.com/mehdihadeli/go-food-delivery-microservices/internal/services/catalogwriteservice/internal/products/grpc/genproto"
 
 	"emperror.dev/errors"
 	"github.com/mehdihadeli/go-mediatr"

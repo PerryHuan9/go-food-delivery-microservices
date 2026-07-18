@@ -19,7 +19,7 @@ import (
 	"github.com/mehdihadeli/go-food-delivery-microservices/internal/services/catalogwriteservice/config"
 	"github.com/mehdihadeli/go-food-delivery-microservices/internal/services/catalogwriteservice/internal/shared/configurations/catalogs"
 	"github.com/mehdihadeli/go-food-delivery-microservices/internal/services/catalogwriteservice/internal/shared/data/dbcontext"
-	productsService "github.com/mehdihadeli/go-food-delivery-microservices/internal/services/catalogwriteservice/internal/shared/grpc/genproto"
+	productsService "github.com/mehdihadeli/go-food-delivery-microservices/internal/services/catalogwriteservice/internal/products/grpc/genproto"
 
 	"github.com/stretchr/testify/require"
 	gorm2 "gorm.io/gorm"

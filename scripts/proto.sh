@@ -4,7 +4,13 @@
 set -e
 
 readonly service="$1"
-readonly outPath="./internal/services/$service/internal/shared/grpc/genproto"
+
+# genproto lives next to the feature module that owns the gRPC contract,
+# so the output path differs per service.
+case "$service" in
+  catalogwriteservice) readonly outPath="./internal/services/$service/internal/products/grpc/genproto" ;;
+  *)                   readonly outPath="./internal/services/$service/internal/shared/grpc/genproto" ;;
+esac
 
 # https://stackoverflow.com/questions/13616033/install-protocol-buffers-on-windows
 # https://dev.to/techschoolguru/how-to-define-a-protobuf-message-and-generate-go-code-4g4e

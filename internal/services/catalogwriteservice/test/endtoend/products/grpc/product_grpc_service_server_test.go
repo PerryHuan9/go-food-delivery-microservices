@@ -7,7 +7,7 @@ import (
 	"context"
 	"testing"
 
-	productService "github.com/mehdihadeli/go-food-delivery-microservices/internal/services/catalogwriteservice/internal/shared/grpc/genproto"
+	productService "github.com/mehdihadeli/go-food-delivery-microservices/internal/services/catalogwriteservice/internal/products/grpc/genproto"
 	"github.com/mehdihadeli/go-food-delivery-microservices/internal/services/catalogwriteservice/internal/shared/testfixtures/integration"
 
 	"github.com/brianvoe/gofakeit/v6"
