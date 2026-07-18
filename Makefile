@@ -37,10 +37,10 @@ install-dependencies:
 
 .PHONY: docker-compose-infra-up
 docker-compose-infra-up:
-	@docker-compose -f deployments/docker-compose/docker-compose.infrastructure.yaml up --build -d
+	@docker compose -f deployments/docker-compose/docker-compose.infrastructure.yaml up --build -d
 
 docker-compose-infra-down:
-	@docker-compose -f deployments/docker-compose/docker-compose.infrastructure.yaml down
+	@docker compose -f deployments/docker-compose/docker-compose.infrastructure.yaml down
 
 .PHONY: openapi
 openapi:

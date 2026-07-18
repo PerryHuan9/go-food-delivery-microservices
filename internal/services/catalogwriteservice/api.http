@@ -1,0 +1,60 @@
+### catalogwriteservice — REST Client
+### 用法：把光标放到某个 ###  之后的请求块，点上方 "Send Request" 或按 Ctrl+Alt+R
+
+@host = http://localhost:7000
+@base = {{host}}/api/v1
+
+########################################
+# Products
+########################################
+
+### 列出所有 products（分页）
+GET {{base}}/products?page=1&size=20
+Accept: application/json
+
+
+### 创建一个 product —— 记得从响应里复制 productId 到下面的 @productId
+# @name createProduct
+POST {{base}}/products
+Content-Type: application/json
+
+{
+  "name": "Pizza Margherita",
+  "description": "Classic tomato + mozzarella",
+  "price": 12.5
+}
+
+
+### 把上一步创建的 id 存下来，或手动填一个
+@productId = {{createProduct.response.body.productId}}
+
+
+### 按 id 查询
+GET {{base}}/products/{{productId}}
+Accept: application/json
+
+
+### 更新 product
+PUT {{base}}/products/{{productId}}
+Content-Type: application/json
+
+{
+  "name": "Pizza Margherita (v2)",
+  "description": "Now with basil",
+  "price": 13.9
+}
+
+
+### 全文搜索（走 ES / DB LIKE，看服务实现）
+GET {{base}}/products/search?search=pizza
+Accept: application/json
+
+
+### 删除
+DELETE {{base}}/products/{{productId}}
+
+
+########################################
+# Swagger UI (浏览器打开)
+# http://localhost:7000/swagger/index.html
+########################################

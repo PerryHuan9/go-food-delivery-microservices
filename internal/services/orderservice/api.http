@@ -1,0 +1,58 @@
+### orderservice — REST Client
+### 使用 Event Sourcing + EventStoreDB (每次操作都是一个 event，聚合状态由事件流回放而来)
+### 用法：光标放到 ### 下的请求块，点 "Send Request"
+
+@host = http://localhost:8000
+@base = {{host}}/api/v1
+
+########################################
+# Orders
+########################################
+
+### 列出所有 orders（分页）
+GET {{base}}/orders?page=1&size=20&orderBy=createdAt
+Accept: application/json
+
+
+### 创建一个 order
+# @name createOrder
+POST {{base}}/orders
+Content-Type: application/json
+
+{
+  "accountEmail": "alice@example.com",
+  "deliveryAddress": "221B Baker Street, London",
+  "deliveryTime": "2026-07-20T12:00:00Z",
+  "shopItems": [
+    {
+      "title": "Pizza Margherita",
+      "description": "Classic tomato + mozzarella",
+      "quantity": 2,
+      "price": 12.5
+    },
+    {
+      "title": "Coke",
+      "description": "330ml can",
+      "quantity": 1,
+      "price": 2.0
+    }
+  ]
+}
+
+
+### 从响应里取出 orderId
+@orderId = {{createOrder.response.body.Id}}
+
+
+### 按 id 查询（内部通过事件流回放得到当前状态）
+GET {{base}}/orders/{{orderId}}
+Accept: application/json
+
+
+########################################
+# 观察 event sourcing 的地方：
+# EventStoreDB UI: http://localhost:2113  (admin/changeit)
+#   在 Streams 里找  order-{orderId}  之类的 stream，能看到每一步 event
+# Swagger UI:      http://localhost:8000/swagger/index.html
+# Jaeger (trace):  http://localhost:16686
+########################################

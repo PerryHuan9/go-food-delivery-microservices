@@ -87,7 +87,7 @@ services:
   # https://grafana.com/docs/grafana/latest/datasources/jaeger/
   # https://grafana.com/docs/tempo/latest/operations/architecture/
   tempo:
-    image: grafana/tempo:latest
+    image: grafana/tempo:2.3.1
     command: ["-config.file=/etc/tempo.yaml" ]
     volumes:
       - ./otelcollector/tempo.yaml:/etc/tempo.yaml

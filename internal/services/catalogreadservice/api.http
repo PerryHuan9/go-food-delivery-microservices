@@ -1,0 +1,38 @@
+### catalogreadservice — REST Client
+### 只读服务：数据来自 catalogwriteservice 通过 RabbitMQ 事件同步过来的投影
+### 用法：光标放到 ###  下的请求块，点 "Send Request"
+
+@host = http://localhost:7001
+@base = {{host}}/api/v1
+
+########################################
+# Products (read model, MongoDB)
+########################################
+
+### 列出所有 products（分页）
+GET {{base}}/products?page=1&size=20&orderBy=createdAt
+Accept: application/json
+
+
+### 全文搜索
+GET {{base}}/products/search?search=pizza
+Accept: application/json
+
+
+### 按 productId 查询单个
+### 先跑 catalogwriteservice/api.http 里的 POST /products 拿到 productId
+@productId = 把这里替换为写服务返回的 productId
+
+GET {{base}}/products/{{productId}}
+Accept: application/json
+
+
+########################################
+# 验证事件驱动同步的推荐流程：
+# 1. 在 catalogwriteservice/api.http 中 POST /products
+# 2. 拷贝返回的 productId
+# 3. 立刻在此文件 GET /products/{id}  → 大概率还没同步，可能 404
+# 4. 等 1~2 秒再试 → 应该能查到  (write → RabbitMQ → read 已消费并写入 Mongo)
+# Swagger UI: http://localhost:7001/swagger/index.html
+# RabbitMQ 控制台: http://localhost:15672  (guest/guest)
+########################################
